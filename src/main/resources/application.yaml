@@ -1,9 +1,15 @@
 server:
-  port: ${APPLICATION_PORT:8080}
+  port: ${SERVER_PORT:8080}
 
 spring:
   application:
     name: spring-webapp
+
+  main:
+    lazy-initialization: true
+  servlet:
+    multipart:
+      resolve-lazily: true
 
 #management:
 #  health:
