@@ -1,0 +1,24 @@
+server:
+  port: ${APPLICATION_PORT:8080}
+
+spring:
+  application:
+    name: spring-webapp
+
+#management:
+#  health:
+#    diskspace:
+#      enabled: true
+#  endpoint:
+#    health:
+#      probes:
+#        enabled: true
+#      show-details: always
+#      show-components: always
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "resume,pause,restart,refresh,metrics,threaddump,heapdump,info,health,health-path"
+
+
+
