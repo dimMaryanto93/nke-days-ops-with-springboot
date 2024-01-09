@@ -19,7 +19,7 @@ Software/Tools should you install on your laptop
 - [OpenJDK 17](https://openjdk.org/projects/jdk/17/) / [Oracle JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or later
 - [Docker Engine/Desktop](https://www.docker.com/products/docker-desktop/)
 - [git](https://git-scm.com/downloads)
-- Your favorite text editor such as [vs-code](https://code.visualstudio.com/), [intelliJ IDEA](https://www.jetbrains.com/idea/download/)
+- Your favorite text editor such as [vs-code](https://code.visualstudio.com/), [intelliJ IDEA](https://www.jetbrains.com/idea/download/), etc...
 
 Nutanix Cluster should you have to accessed
 
