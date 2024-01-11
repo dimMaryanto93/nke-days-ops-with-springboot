@@ -11,20 +11,38 @@ spring:
     multipart:
       resolve-lazily: true
 
-#management:
-#  health:
-#    diskspace:
-#      enabled: true
-#  endpoint:
-#    health:
-#      probes:
-#        enabled: true
-#      show-details: always
-#      show-components: always
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "resume,pause,restart,refresh,metrics,threaddump,heapdump,info,health,health-path"
+  datasource:
+    username: ${DATABASE_USERNAME:example}
+    password: ${DATABASE_PASSWORD:example}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:example}
+    driver-class-name: org.postgresql.Driver
 
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    database: postgresql
 
+  flyway:
+    baseline-version: 1
+    enabled: ${FLYWAY_ENABLED:true}
+    clean-disabled: true
+
+management:
+  health:
+    diskspace:
+      enabled: true
+
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      show-components: always
+
+  endpoints:
+    web:
+      exposure:
+        include: "resume,pause,restart,refresh,metrics,threaddump,heapdump,info,health,health-path"
 
