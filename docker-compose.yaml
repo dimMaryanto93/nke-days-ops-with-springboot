@@ -4,7 +4,7 @@ volumes:
 
 services:
   backend:
-    image: dimmaryanto93/demo-nke-ops:webservice-v2
+    image: dimmaryanto93/demo-nke-ops:jpa-webservice-v1
     build:
       context: ./
       dockerfile: Dockerfile
