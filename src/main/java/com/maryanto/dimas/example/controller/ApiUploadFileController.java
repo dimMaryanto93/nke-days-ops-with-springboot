@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/media/v1")
-public class UploadFilesController {
+public class ApiUploadFileController {
 
     @Value("${files.store_location}")
     private String fileLocation;
