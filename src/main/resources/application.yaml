@@ -1,48 +1,24 @@
-server:
-  port: ${SERVER_PORT:8080}
-
 spring:
   application:
-    name: spring-webapp
-
-  main:
-    lazy-initialization: true
-  servlet:
-    multipart:
-      resolve-lazily: true
+    name: springweb-jpa
 
   datasource:
-    username: ${DATABASE_USERNAME:example}
-    password: ${DATABASE_PASSWORD:example}
-    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:example}
     driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USERNAME:example}
+    password: ${POSTGRES_PASSWORD:example}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB_NAME:example}
 
   jpa:
+    database: postgresql
     generate-ddl: false
     hibernate:
       ddl-auto: validate
     show-sql: true
-    database: postgresql
 
   flyway:
     baseline-version: 1
     enabled: ${FLYWAY_ENABLED:true}
     clean-disabled: true
 
-management:
-  health:
-    diskspace:
-      enabled: true
-
-  endpoint:
-    health:
-      probes:
-        enabled: true
-      show-details: always
-      show-components: always
-
-  endpoints:
-    web:
-      exposure:
-        include: "resume,pause,restart,refresh,metrics,threaddump,heapdump,info,health,health-path"
-
+server:
+  port: ${SERVER_PORT:8080}
