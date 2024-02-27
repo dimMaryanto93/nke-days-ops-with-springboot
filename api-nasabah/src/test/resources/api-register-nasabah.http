@@ -1,5 +1,5 @@
 ### Post request to create new nasabah
-POST {{host}}:{{port}}{{context-path}}/api/nasabah/register
+POST {{host}}:{{port-nasabah}}{{context-path}}/api/nasabah/register
 Content-Type: application/json
 
 {

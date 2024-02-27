@@ -6,9 +6,23 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./api-wilayah
+      args:
+        JAR_FILE: microservice-api-wilayah-1.0.0.jar
+    ports:
+      - "8081:8080"
+    environment:
+      SERVER_PORT: 8080
 
   nasabah-api:
     image: dimmaryanto93/demo-nke-ops:microservice-nasabah-v1
     build:
       dockerfile: Dockerfile
       context: ./api-nasabah
+      args:
+        JAR_FILE: microservice-api-nasabah-1.0.0.jar
+    ports:
+      - "8082:8080"
+    environment:
+      SERVER_PORT: 8080
+      SERVICE_WILAYAH_HOST: wilayah-api
+      SERVICE_WILAYAH_PORT: 8080
