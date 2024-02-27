@@ -4,9 +4,9 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: ${POSTGRES_USERNAME:example}
-    password: ${POSTGRES_PASSWORD:example}
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB_NAME:example}
+    username: ${DATABASE_USERNAME:example}
+    password: ${DATABASE_PASSWORD:example}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:example}
 
   jpa:
     database: postgresql
