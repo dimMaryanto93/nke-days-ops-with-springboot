@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: microservice-api-nasabah
+
+server:
+  port: ${APPLICATION_PORT:8082}
+
+clients:
+  wilayah-service:
+    url: http://${SERVICE_WILAYAH_HOST:localhost}:${SERVICE_WILAYAH_PORT:8081}
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
+  wavefront:
+    application:
+      service-name: ${spring.application.name}
+
+  health:
+    diskspace:
+      enabled: true
+
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+      show-components: always
+
+  endpoints:
+    web:
+      exposure:
+        include: "resume,pause,restart,refresh,metrics,threaddump,heapdump,info,health,health-path"

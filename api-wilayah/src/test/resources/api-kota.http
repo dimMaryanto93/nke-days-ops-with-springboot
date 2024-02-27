@@ -1,0 +1,7 @@
+### GET list kota
+GET {{host}}:{{port}}{{context-path}}/api/kota/list
+Content-Type: application/json
+
+### Get find by id
+GET {{host}}:{{port}}{{context-path}}/api/kota/findById/02
+Content-Type: application/json

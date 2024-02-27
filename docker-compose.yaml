@@ -1,34 +1,14 @@
 version: '3.9'
-volumes:
-  pg_data: {}
 
 services:
-  backend:
-    image: dimmaryanto93/demo-nke-ops:webservice-v2
+  wilayah-api:
+    image: dimmaryanto93/demo-nke-ops:microservice-wilayah-v1
     build:
-      context: ./
       dockerfile: Dockerfile
-      args:
-        JAR_FILE: demo-nke-ops-1.0.0.jar
-    ports:
-      - "8080:8080"
-    environment:
-      SERVER_PORT: 8080
-      DATABASE_USERNAME: example
-      DATABASE_PASSWORD: example
-      DATABASE_NAME: example
-      DATABASE_HOST: database
-      DATABASE_PORT: 5432
-    depends_on:
-      - database
+      context: ./api-wilayah
 
-  database:
-    image: postgres:15.1-alpine
-    environment:
-      POSTGRES_DB: example
-      POSTGRES_USER: example
-      POSTGRES_PASSWORD: example
-    ports:
-      - "5432:5432"
-    volumes:
-      - pg_data:/var/lib/postgresql/data
+  nasabah-api:
+    image: dimmaryanto93/demo-nke-ops:microservice-nasabah-v1
+    build:
+      dockerfile: Dockerfile
+      context: ./api-nasabah

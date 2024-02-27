@@ -1,0 +1,10 @@
+### Post request to create new nasabah
+POST {{host}}:{{port}}{{context-path}}/api/nasabah/register
+Content-Type: application/json
+
+{
+  "nik": "62xxxxx",
+  "namaLengkap": "Dimas Maryanto",
+  "alamat": "Jl. Bukit Indah no B8 kab.Bandung",
+  "idKota": "01"
+}
