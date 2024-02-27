@@ -1,0 +1,16 @@
+### Send a form with the text and file fields
+POST {{host}}:{{port}}{{contect-path}}/api/media/v1/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="content"; filename="docker.png"
+Content-Type: application/json
+
+< ./docker.png
+--WebAppBoundary--
+
+### get list file
+GET {{host}}:{{port}}{{contect-path}}/api/media/v1/list
+
+### GET checkhost is available
+GET {{host}}:{{port}}{{contect-path}}/actuator/health

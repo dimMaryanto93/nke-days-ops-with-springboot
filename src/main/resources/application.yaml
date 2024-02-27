@@ -1,30 +1,17 @@
 spring:
   application:
-    name: springweb-jpa
+    name: springweb-files-upload
 
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    username: ${DATABASE_USERNAME:example}
-    password: ${DATABASE_PASSWORD:example}
-    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:example}
-
-  jpa:
-    database: postgresql
-    generate-ddl: false
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
-
-  flyway:
-    baseline-version: 1
-    enabled: ${FLYWAY_ENABLED:true}
-    clean-disabled: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      resolve-lazily: true
+      max-request-size: 100MB
 
 management:
   health:
     diskspace:
-      enabled: true
-    db:
       enabled: true
 
   endpoint:
@@ -33,6 +20,7 @@ management:
         enabled: true
       show-details: always
       show-components: always
+
   endpoints:
     web:
       exposure:
@@ -40,3 +28,6 @@ management:
 
 server:
   port: ${SERVER_PORT:8080}
+
+files:
+  store_location: ${FILE_UPLOAD_STORED:target/uploads}
