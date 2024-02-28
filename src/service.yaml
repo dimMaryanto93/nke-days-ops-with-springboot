@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-filesystem
+spec:
+  selector:
+    app: web-filesystem
+    tier: frontend
+    version: v1
+  ports:
+    - port: 8080
+      name: http
+      targetPort: 8080
+  type: NodePort
