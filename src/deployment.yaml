@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webservice
+  labels:
+    app: webservice
+    version: v1
+    tier: backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: webservice
+      labels:
+        app: webservice
+        version: v1
+        tier: backend
+    spec:
+      containers:
+        - name: webservice
+          image: <registry-url>/<username>/demo-nke-ops/webservice-v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+#          # uncomment this to limit the resource
+#          resources:
+#            limits:
+#              cpu: 1000m
+#              memory: 1Gi
+#            requests:
+#              cpu: 200m
+#              memory: 200Mi
+#         # uncomment this to using continer probe
+#          livenessProbe:
+#            httpGet:
+#              port: http
+#              path: /actuator/health/liveness
+#            periodSeconds: 5
+#            failureThreshold: 3
+#          startupProbe:
+#            httpGet:
+#              port: http
+#              path: /actuator/health/readiness
+#            failureThreshold: 3
+#            initialDelaySeconds: 3
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: webservice
+      version: v1
+      tier: backend
