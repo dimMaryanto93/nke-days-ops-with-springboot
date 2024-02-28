@@ -1,0 +1,40 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: wilayah-api
+  labels:
+    app: wilayah-api
+    tier: backend
+    version: v1
+spec:
+  maxReplicas: 8
+  minReplicas: 2
+  metrics:
+    - type: ContainerResource
+      containerResource:
+        container: wilayah-api
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Percent
+          value: 10
+          periodSeconds: 15
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 15
+        - type: Pods
+          value: 3
+          periodSeconds: 15
+      selectPolicy: Max
+  scaleTargetRef:
+    kind: Deployment
+    name: wilayah-api
+    apiVersion: apps/v1

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nasabah-api
+data:
+  SERVICE_WILAYAH_HOST: wilayah-api.<namespace>
+  SERVICE_WILAYAH_PORT: 8080
