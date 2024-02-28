@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jpa-webservice
+  labels:
+    app: jpa-webservice
+    tier: backend
+    version: v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: jpa-webservice
+      labels:
+        app: jpa-webservice
+        tier: backend
+        version: v1
+    spec:
+      containers:
+        - name: jpa-webservice
+          image: <registry-url>/<username>/demo-nke-ops:jpa-webservice-v1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: webservice
+                optional: false
+            - secretRef:
+                name: db-cred
+                optional: false
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/liveness
+            periodSeconds: 5
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/readiness
+            failureThreshold: 3
+            initialDelaySeconds: 3
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: jpa-webservice
+      tier: backend
+      version: v1
+                                 

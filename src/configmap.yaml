@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webservice
+data:
+  FLYWAY_ENABLED: true
+  SERVER_PORT: 8080
