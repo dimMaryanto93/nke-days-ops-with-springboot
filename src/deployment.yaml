@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-filesystem
+  labels:
+    app: web-filesystem
+    tier: frontend
+    version: v1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: web-filesystem
+      labels:
+        app: web-filesystem
+        tier: frontend
+        version: v1
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: data-pvc
+            readOnly: false
+      containers:
+        - name: web-filesystem
+          image: <registry-url>/<username>/demo-nke-ops:uploadfile-v1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: web-filesystem
+                optional: false
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/liveness
+            periodSeconds: 5
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/readiness
+            failureThreshold: 3
+            initialDelaySeconds: 3
+          volumeMounts:
+              - mountPath: /var/lib/spring-boot/data
+                name: data
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: web-filesystem
+      tier: frontend
+      version: v1
