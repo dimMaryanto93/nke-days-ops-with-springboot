@@ -15,6 +15,14 @@ Sebagai instructure, ada beberapa yang perlu disiapkan terkait environtment trai
 
 - Create image profile (disk image) based on Centos 7
 - Install Nexus OSS for container registry
-- Configure registry for docker image
-- Enable Karbon airgap
+    - Configure registry for docker image
+    - Setup user auth
+    - Configure insecure registry for docker engine
 - Enable Nutanix Kubernetes Engine v2.8.0 or latest
+    - Enable Karbon airgap
+    - Create Kubernetes Cluster
+- Enable Nutanix Database
+    - Provision PostgreSQL 10.x database
+- Enable Nutanix Files
+    - Setup export folder
+    - Create PVC
