@@ -1,5 +1,6 @@
 ---
 title: "01b - Create disk image (vm template)"
+date: 2024-03-09T15:15:50+07:00
 catalog_key: preparation
 categories:
 - Nutanix
