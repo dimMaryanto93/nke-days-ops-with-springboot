@@ -20,6 +20,7 @@ Software/Tools should you install on your laptop
 - [Docker Engine/Desktop](https://www.docker.com/products/docker-desktop/)
 - [git](https://git-scm.com/downloads)
 - Your favorite text editor such as [vs-code](https://code.visualstudio.com/), [intelliJ IDEA](https://www.jetbrains.com/idea/download/), etc...
+- Kubernetes client ([kubectl](https://kubernetes.io/docs/tasks/tools/))
 
 Nutanix Cluster should you have to accessed
 
