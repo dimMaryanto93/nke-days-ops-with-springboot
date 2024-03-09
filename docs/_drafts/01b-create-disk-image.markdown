@@ -1,13 +1,12 @@
 ---
-title: "01a - Create disk image (vm template)"
-date: 2024-03-09T12:42:38+07:00
+title: "01b - Create disk image (vm template)"
 catalog_key: preparation
 categories:
 - Nutanix
 - VMs
 - Images
 refs: []
-image_path: /resources/imgs/01a-create-disk-image
+image_path: /resources/imgs/01b-create-disk-image
 gist: 
 downloads: []
 ---
