@@ -159,7 +159,7 @@ Setelah OS CentOS 7 terpasang, dan temen-temen bisa login ada beberapa setting y
 Sekarang kita akan disable selinux, caranya login sebagai root kemudian edit file `/etc/selinux/config` menggunakan editor seperti `vi` seperti berikut:
 
 ```conf
-SELINUX=enforcing
+SELINUX=permissive
 ```
 
 Save dan quit, setelah itu reboot VM. Setelah nyala kembali vm kita bisa check menggunakan command `sestatus` makesure status outpunya seperti berikut:
