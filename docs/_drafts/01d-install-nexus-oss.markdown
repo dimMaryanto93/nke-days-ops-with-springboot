@@ -18,6 +18,7 @@ The an other way for storing/accessing container image can be accessed locally i
 2. Installing Nexus OSS
 3. Setup Container registry
 4. Setup authentication
+5. Setup NKE private registry
 
 ## Deploying VM to using Nexus OSS
 
@@ -252,3 +253,178 @@ Maka nexus-oss bisa di akses di browser dengan menggunakan alamat [http://[ip-ad
 ![nexus-oss]({{ page.image_path | prepend: site.baseurl}}/02-access-nexus-oss.png)
 
 ## Setup Container registry
+
+Untuk membuat registry di nexus kita perlu login dulu sebagai Administrator, secara default user `admin` passwordnya by default di simpan pada file yang lokasinya di `/<path-install>/sonarworks/nexus3/initial_password`. setelah itu pilih Setting seperti berikut:
+
+![settings]({{ page.image_path | prepend: site.baseurl }}/02a-nexus-admin-login.png)
+
+Setelah itu kita akan membuat repository, Ada 3 tipe repository
+
+1. Proxy, digunakan sebagai mirror registry dari public atau private registry lain. 
+2. Hosted, digunakan untuk menyimpan image yang kita publish/push
+3. Group, digunakan untuk mengelompokan proxy dan hosted registry.
+
+Pertama kita buat dulu proxy registry. Dengan cara seperti berikut:
+
+[Create new repository]() -> [docker (proxy)]() Kemudian isi form seperti specifikasi berikut:
+
+```yaml
+name: docker-registry-io
+repositoryConnectors:
+  http: blank
+  https: blank
+  allowAnonymousDockerPull: checked
+dockerRegistryApi:
+  enableDockerV1API: checked
+proxy:
+  remoteStorage: 
+    url: https://registry-1.docker.io
+    dockerIndex: Use Docker Hub
+storage:
+  blobStorage: default
+```
+
+Seperti berikut:
+
+![repo-docker-proxy]({{ page.image_path | prepend: site.baseurl}}/02b-docker-reg-proxy.png)
+
+Kemudian klick [Create repository](). 
+
+Setelah itu, kita setup untuk menyimpan image yang kita miliki ke private-registry dengan menggunakan docker (hosted). Dengan cara seperti berikut:
+
+[Create new repository]() -> [docker (hosted)]() Kemudian isi form seperti specifikasi berikut:
+
+```yaml
+name: docker-hosted
+repositoryConnectors:
+  http: checked [8087]
+  https: blank
+  allowAnonymousDockerPull: checked
+dockerRegistryApi:
+  enableDockerV1API: checked
+storage:
+  blobStorage: default
+hosted:
+  deploymentPolicy: Allow redeploy
+```
+
+Seperti berikut:
+
+![repo-docker-hosted]({{ page.image_path | prepend: site.baseurl}}/02c-docker-reg-hosted.png)
+
+Kemudian klik [Create repository](). Dan yang terakhir kita buat group repository docker dengan tujuan mengkases ke-2 registry yang telah kita buat dalam satu port connection saja dengan spesifikasi seperti berikut:
+
+```yaml
+name: docker-group
+repositoryConnectors:
+  http: checked [8086]
+  https: blank
+  allowAnonymousDockerPull: checked
+dockerRegistryApi:
+  enableDockerV1API: unchecked
+storage:
+  blobStorage: default
+group:
+  members: [docker-registry-io, docker-hosted]
+```
+
+Seperti berikut:
+
+![repo-docker-group]({{ page.image_path | prepend: site.baseurl}}/02d-docker-reg-group.png) Kemudian klik [Create repository]().
+
+## Setup authentication
+
+Setelah kita setup registry untuk container image, by default kita belum bisa akses registrynya tanpa authentication sekarang kita akan setup Auth Docker. Kita ke menu [Realms]() kemudian include `Docker Realms` ke aktif seperti berikut:
+
+![realms-docker-active]({{ page.image_path | prepend: site.baseurl}}/03-docker-realms-active.png)
+
+Setelah itu kita perlu set Roles specifik untuk NKE yang hanya bisa pull container image dari nexus caranya kita akses menu [Roles]() kemudian kita [Create role]() dengan spesifikasi seperti berikut:
+
+```yaml
+type: Nexus Role
+roleId: nx-only-docker-pull
+roleName: Nexus Docker Pull only
+appliedPrivilages:
+  - nx-repository-admin-docker-docker-group-read
+  - nx-repository-admin-docker-docker-hosted-browse
+  - nx-repository-admin-docker-docker-hosted-read
+  - nx-repository-view-docker-*-browse
+```
+
+Seperti berikut:
+
+![new-role]({{ page.image_path | prepend: site.baseurl}}/03a-nexus-nke-role.png)
+
+Kemudian di [Save](), Setelah itu kita create user baru dengan cara klick menu [Users]() -> [Create local user]() dengan spesifikasi seperti berikut:
+
+```yaml
+userId: nke-user
+firstName: nke
+lastName: Nutanix Kubernetes
+email: nke@nutanix.local
+password: nke-user1234!
+status: active
+roles: ['nx-anonymous', 'nexus-docker-pull-only']
+```
+
+Seperti berikut:
+
+![new-user]({{ page.image_path | prepend: site.baseurl}}/03b-nexus-nke-user.png)
+
+Jika sudah sekarang kita test, dengan menggukan docker. So kita install docker pada vm nexus. Maka kita login menggunakan ssh dan install menggunakan perintah berikut:
+
+```bash
+sudo yum install -y yum-utils && \
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && \
+sudo yum -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin && \
+systemctl enable --now docker && \
+firewall-cmd --zone=public --add-masquerade --permanent && \
+firewall-cmd --zone=public --add-port=2375/tcp --permanent && \
+firewall-cmd --reload
+```
+
+Setelah kita install, sekarang kita tambahkan config `insecure-registries` pada docker engine dengan membuat file `/etc/docker/daemon.json` dengan spesifikasi seperti berikut:
+
+```json
+{
+  "registry-mirrors": [],
+  "insecure-registries": [
+    "10.12.11.71:8087",
+    "10.12.11.71:8086"
+  ],
+  "debug": false,
+  "experimental": false,
+  "features": {
+    "buildkit": true
+  }
+}
+```
+
+Kemudian [Save & Quit]() dan restart service docker menggunakan perintah berikut:
+
+```bash
+systemctl restart docker && \
+docker info
+```
+
+Makesure ip insecure-registries yang kita tambahkan pada file tersebut sudah muncul pada perintah `docker info`. Jika sudah Ok sekarang kita login menggunakan nexus registry perintahnya berikut:
+
+```bash
+docker login -u nke-user 10.12.11.71:8086
+```
+
+Setelah itu kita bisa coba pull container image `nginx:mainline` dengan perintah berikut:
+
+```bash
+docker pull 10.12.11.71:8086/nginx:mainline
+```
+
+Jika dijalankan hasilnya seperti berikut:
+
+![docker-pull-insecure]({{ page.image_path | prepend: site.baseurl}}/03c-docker-pull.png)
+
+Dan jika kita lihat di [browse repository]() -> [docker-group]() berikut image nginx yang telah terdownload dari docker hub di nexus:
+
+![nexus-download]({{ page.image_path | prepend: site.baseurl}}/03d-nexus-download-from-dockerhub.png)
+
+## Setup NKE private registry
