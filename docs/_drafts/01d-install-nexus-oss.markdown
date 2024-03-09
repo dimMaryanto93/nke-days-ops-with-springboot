@@ -7,7 +7,7 @@ categories:
 - Registry
 - NexusOSS
 refs: []
-image_path: /resources/imgs/01c-install-nexus-oss
+image_path: /resources/imgs/01d-nexus-oss
 gist: 
 downloads: []
 ---
