@@ -5,7 +5,7 @@ categories:
 - Nutanix
 - NKE
 refs: []
-image_path: /resources/posts/00-connect-vpn
+image_path: /resources/imgs/00-connect-vpn
 gist: 
 downloads: []
 ---

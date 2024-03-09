@@ -5,7 +5,7 @@ categories:
 - Nutanix
 - NKE
 refs: []
-image_path: /resources/posts/{{ title }}
+image_path: /resources/imgs/{{ title }}
 gist: 
 downloads: []
 ---

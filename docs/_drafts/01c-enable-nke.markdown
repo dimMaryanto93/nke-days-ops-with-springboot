@@ -5,7 +5,7 @@ categories:
 - Nutanix
 - NKE
 refs: []
-image_path: /resources/posts/01c-enable-airgap
+image_path: /resources/imgs/01c-enable-airgap
 gist: 
 downloads: []
 ---

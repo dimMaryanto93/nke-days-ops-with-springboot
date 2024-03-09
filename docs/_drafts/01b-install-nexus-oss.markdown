@@ -5,7 +5,7 @@ categories:
 - Nutanix
 - NKE
 refs: []
-image_path: /resources/posts/01b-install-nexus-oss
+image_path: /resources/imgs/01b-install-nexus-oss
 gist: 
 downloads: []
 ---

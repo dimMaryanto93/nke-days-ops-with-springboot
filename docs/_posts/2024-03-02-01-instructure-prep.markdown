@@ -6,7 +6,7 @@ categories:
 - Nutanix
 - NKE
 refs: []
-image_path: /resources/posts/01-instructure-prep
+image_path: /resources/imgs/01-instructure-prep
 gist: 
 downloads: []
 ---
