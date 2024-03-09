@@ -1,5 +1,5 @@
 ---
-title: "01b - Install & Configure Nexus OSS as Container Registry"
+title: "01d - Install & Configure Nexus OSS as Container Registry"
 catalog_key: preparation
 categories:
 - Nutanix
