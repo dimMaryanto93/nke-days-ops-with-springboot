@@ -1,11 +1,11 @@
 ---
-title: "02-student-preparation"
+title: "02b-docker-compose"
 catalog_key: preparation
 categories:
 - Nutanix
 - NKE
 refs: []
-image_path: /resources/imgs/02-student-preparation
+image_path: /resources/imgs/02b-docker-compose
 gist: 
 downloads: []
 ---
