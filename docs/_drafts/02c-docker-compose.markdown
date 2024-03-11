@@ -1,9 +1,10 @@
 ---
-title: "02b-docker-compose"
-catalog_key: preparation
+title: "02b - Running multiple container in single command"
+catalog_key: hands-on
 categories:
-- Nutanix
-- NKE
+- Container
+- Docker
+- Compose
 refs: []
 image_path: /resources/imgs/02b-docker-compose
 gist: 

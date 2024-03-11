@@ -1,6 +1,6 @@
 ---
-title: "02g-case-spring-microservice"
-catalog_key: preparation
+title: "02g - Study Case: Deploy microservice apps"
+catalog_key: hands-on
 categories:
 - Nutanix
 - NKE

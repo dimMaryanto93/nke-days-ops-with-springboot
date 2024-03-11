@@ -1,9 +1,11 @@
 ---
-title: "02b-docker-build"
-catalog_key: preparation
+title: "02b - Build your apps and wrap into OCI"
+catalog_key: hands-on
 categories:
-- Nutanix
-- NKE
+- Application
+- Container
+- Docker
+- Image
 refs: []
 image_path: /resources/imgs/02b-docker-build
 gist: 

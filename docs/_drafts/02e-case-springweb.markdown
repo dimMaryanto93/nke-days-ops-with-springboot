@@ -1,6 +1,6 @@
 ---
-title: "02e-case-springweb"
-catalog_key: preparation
+title: "02e - Study Case: Deploy spring-webmvc"
+catalog_key: hands-on
 categories:
 - Nutanix
 - NKE

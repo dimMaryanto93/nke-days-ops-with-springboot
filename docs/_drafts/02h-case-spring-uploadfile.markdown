@@ -1,6 +1,6 @@
 ---
-title: "02h-case-spring-uploadfile"
-catalog_key: preparation
+title: "02h - Study Case: deploy stateful apps (upload file)"
+catalog_key: hands-on
 categories:
 - Nutanix
 - NKE

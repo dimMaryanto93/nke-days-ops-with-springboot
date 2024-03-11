@@ -1,6 +1,6 @@
 ---
-title: "02f-case-springweb-jpa"
-catalog_key: preparation
+title: "02f - Study Case: Deploy spring-web-jpa (with database)"
+catalog_key: hands-on
 categories:
 - Nutanix
 - NKE

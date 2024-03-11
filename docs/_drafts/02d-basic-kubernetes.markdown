@@ -1,6 +1,6 @@
 ---
-title: "02d-basic-kubernetes"
-catalog_key: preparation
+title: "02d - Basic Orchestration container with K8S"
+catalog_key: hands-on
 categories:
 - Nutanix
 - NKE

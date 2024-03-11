@@ -1,6 +1,6 @@
 ---
-title: "02h-case-monitoring"
-catalog_key: preparation
+title: "02h - Study Case: Monitoring your apps"
+catalog_key: hands-on
 categories:
 - Nutanix
 - NKE

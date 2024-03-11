@@ -1,9 +1,9 @@
 ---
-title: "02a-basic-container"
-catalog_key: preparation
+title: "02a - Basic Container"
+catalog_key: hands-on
 categories:
-- Nutanix
-- NKE
+- Container
+- Docker
 refs: []
 image_path: /resources/imgs/02a-basic-container
 gist: 
